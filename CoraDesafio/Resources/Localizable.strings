@@ -1,0 +1,13 @@
+"Ola.teste" = "Ola Mundo";
+
+
+// MARK: - Icons
+
+"Icons.arrowRight" = "arrow.right";
+"Icons.arrowLeft" = "arrow.left";
+"Icons.chevronLeft" = "chevron.left";
+
+// MARK: - Fonts
+
+"Fonts.regular" = "Lato-Regular";
+"Fonts.bold" = "Lato-Bold";
