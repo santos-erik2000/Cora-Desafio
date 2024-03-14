@@ -19,6 +19,8 @@ public protocol StickNavigationViewModelProtocol: AnyObject {
 
 public class StickNavigationViewModel: StickNavigationViewModelProtocol {
     
+    // MARK: - Properties
+    
     public var title: StickNavigationTitle
     public var leftButton: StickNavigationLeftButton?
     public var backgroundColor: UIColor?
@@ -30,6 +32,8 @@ public class StickNavigationViewModel: StickNavigationViewModelProtocol {
     }
 }
 
+// MARK: - LeftButton
+
 extension StickNavigationViewModel {
     public struct LeftButton {
         let image: UIImage?
@@ -40,6 +44,11 @@ extension StickNavigationViewModel {
             self.color = color
         }
     }
+}
+
+// MARK: - StickNavigationViewModel
+
+extension StickNavigationViewModel {
     
     public struct Title {
         var text: String

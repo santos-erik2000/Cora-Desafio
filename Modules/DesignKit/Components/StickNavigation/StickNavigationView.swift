@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import CoreKit
 
 public protocol StickNavigationViewDelegate: AnyObject {
     func didTapLeftButton()
@@ -34,12 +35,7 @@ public class StickNavigationView: UIView {
     
     public override var intrinsicContentSize: CGSize {
         let superSize = super.intrinsicContentSize
-     
-        if let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene {
-                let windows = windowScene.windows
-            return CGSize(width: superSize.width, height: (windows.first?.safeAreaInsets.top ?? .zero) + 40)
-        }
-       return superSize
+        return CGSize(width: superSize.width, height: LayoutHelper.shared.getSafeTopAreaHeight())
     }
     
     // MARK: - Initialize

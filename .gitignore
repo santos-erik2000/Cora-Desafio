@@ -2,3 +2,5 @@
 *.xcworkspace
 
 PodFile.lock
+
+Pods/

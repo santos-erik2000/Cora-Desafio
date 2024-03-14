@@ -49,6 +49,7 @@ targets:
     dependencies:
       - target: DesignKit
       - target: NetwokKit
+      - target: CoreKit
       
 #######################
   DesignKit:
@@ -59,6 +60,9 @@ targets:
     info:
       path: ../Modules/DesignKit/Info.plist
 
+    dependencies:
+      - target: CoreKit
+
 #######################
 
   NetwokKit:
@@ -68,3 +72,16 @@ targets:
       - path: ../Modules/NetwokKit
     info:
       path: ../Modules/NetwokKit/Info.plist
+      
+    dependencies:
+      - target: CoreKit
+
+#######################
+
+  CoreKit:
+    platform: iOS
+    type: framework
+    sources:
+      - path: ../Modules/CoreKit
+    info:
+      path: ../Modules/CoreKit/Info.plist

@@ -1,6 +1,3 @@
-"Ola.teste" = "Ola Mundo";
-
-
 // MARK: - Icons
 
 "Icons.arrowRight" = "arrow.right";
@@ -11,3 +8,32 @@
 
 "Fonts.regular" = "Lato-Regular";
 "Fonts.bold" = "Lato-Bold";
+
+// MARK: - Commons
+
+"Commons.next" = "Próximo";
+"Commons.Navigation.loginCora" = "Login Cora";
+"Commons.getIn" = "Entrar";
+
+// MARK: - Onboarding
+
+    /// OnboadingView
+"OnboardingView.titleLabel" = "Conta Digital PJ\nPoderosamente simples";
+"OnboardingView.titleLabelBold" = "Conta Digital PJ";
+"OnboardingView.descriptionLabel" = "Sua empresa livre burocracias e de taxas para\ngerar boletos, fazer transferências e\npagamentos.";
+"OnboardingView.registerButton" = "Quero fazer parte!";
+"OnboardingView.loginButton" = "Já sou cliente";
+
+
+// MARK: - Login
+
+    /// LoginView
+"LoginView.welcomeDescription" = "Bem-vindo de volta!";
+"LoginView.cpfDesciption" = "Qual seu CPF?";
+
+
+// MARK: - Password
+
+    /// PasswordView
+"PasswordView.titleLabel" = "Digite sua senha de acesso";
+"PasswordView.forgotPasswordButton" = "Esqueci minha senha";

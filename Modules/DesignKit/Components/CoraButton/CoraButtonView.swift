@@ -51,6 +51,7 @@ public class CoraButtonView: UIButton {
     public override var isEnabled: Bool {
         didSet {
             //Mudar Cor
+            setCoraButtonEnable(isEnabled)
         }
     }
     
@@ -70,7 +71,7 @@ public class CoraButtonView: UIButton {
         super.init(coder: coder)
     }
     
-    // MARK: - Public Static
+    // MARK: - Public Methods
 
     public static func instantiate(viewModel: CoraButtonViewModelProtocol, action: @escaping CoraButtonAction) -> CoraButtonView {
        return setup(viewModel, action: action)
@@ -97,17 +98,27 @@ public class CoraButtonView: UIButton {
         
         iconImage.image = viewModel.icon
         
-        titleLable.textColor = viewModel.title.textColor
-        iconImage.tintColor = viewModel.title.textColor
-        contentView.backgroundColor = viewModel.title.backgroundColor
+        setDefaultsColors()
     }
     
     private func setupTitleLabelView() {
+        guard let sideType = viewModel?.sideType else { return }
+        
         contentView.addSubview(titleLable)
-        NSLayoutConstraint.activate([
-            titleLable.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
-            titleLable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
-        ])
+        
+        switch sideType {
+        case .center:
+            NSLayoutConstraint.activate([
+                titleLable.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                titleLable.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+            ])
+        case .left:
+            NSLayoutConstraint.activate([
+                titleLable.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+                titleLable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
+            ])
+        }
+      
     }
     
     private func setupIconeView() {
@@ -136,6 +147,7 @@ public class CoraButtonView: UIButton {
         let component = CoraButtonView()
         component.action = action
         component.setViewModel(viewModel)
+        component.translatesAutoresizingMaskIntoConstraints = false
         return component
     }
     
@@ -144,6 +156,21 @@ public class CoraButtonView: UIButton {
         return viewModel.size.value
     }
     
+    private func setCoraButtonEnable(_ isEnabled: Bool = true) {
+        if !isEnabled {
+            titleLable.textColor = .white
+            iconImage.tintColor = .white
+            contentView.backgroundColor = .gray.withAlphaComponent(0.5)
+        } else {
+            setDefaultsColors()
+        }
+    }
+    
+    private func setDefaultsColors() {
+        titleLable.textColor = viewModel?.title.textColor
+        iconImage.tintColor = viewModel?.title.textColor
+        contentView.backgroundColor = viewModel?.title.backgroundColor
+    }
     
     public override func touchesEnded(_ touches: Set<UITouch>, with event: UIEvent?) {
         super.touchesEnded(touches, with: event)
@@ -159,6 +186,7 @@ public class CoraButtonView: UIButton {
                 UIView.animate(withDuration: 1.125) { [weak self] in
                     guard let self = self else { return }
                     self.contentView.backgroundColor = viewModel?.title.backgroundColor.withAlphaComponent(1)
+              
                 }
             }
         }
