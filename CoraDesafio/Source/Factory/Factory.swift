@@ -7,7 +7,7 @@
 
 import Foundation
 import UIKit
-
+import NetwokKit
 
 // MARK: - Open Onboarding
 
@@ -46,8 +46,9 @@ enum LoginFactory {
 enum PasswordFactory {
     static func make(coordinator: OnboardingCoordinating) -> UIViewController {
     
+        let service: CoraServicing = CoraService()
         let presenter: PasswordPresenting = PasswordPresenter(coordinator: coordinator)
-        let interactor: PasswordInteracting = PasswordInteractor(presenter: presenter)
+        let interactor: PasswordInteracting = PasswordInteractor(presenter: presenter, service: service)
         let viewController = PasswordViewController(interactor: interactor)
         
         presenter.viewController = viewController

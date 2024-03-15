@@ -51,11 +51,11 @@ class PasswordView: UIView {
     }()
     
     private lazy var forgotPasswordButton: CoraButtonView = {
-       let viewModel = CoraButtonViewModel(
-        title: CoraAccessibleText(text: CoraStrings.PasswordView.forgotPasswordButton, textColor: CoraAssets.defaultPinkColor.color, backgroundColor: .white),
-        icon: nil,
-        font: .font(Contants.mediumFontSize),
-        size: .small)
+        let viewModel = CoraButtonViewModel(
+            title: CoraAccessibleText(text: CoraStrings.PasswordView.forgotPasswordButton, textColor: CoraAssets.defaultPinkColor.color, backgroundColor: .white),
+            icon: nil,
+            font: .font(Contants.mediumFontSize),
+            size: .small)
         
         return CoraButtonView.instantiate(viewModel: viewModel) {[weak self] sender in
             guard let self = self else { return }
@@ -98,6 +98,14 @@ class PasswordView: UIView {
         confirmButton.isEnabled = value
     }
     
+    func setLoadingButton() {
+        self.confirmButton.isLoading = true
+    }
+    
+    func stopLoadingButton() {
+        self.confirmButton.isLoading = false
+    }
+    
     // MARK: - Private Methods
     
     private func buildComponents() {
@@ -134,7 +142,7 @@ extension PasswordView: CoraTextFieldViewDelegate {
     }
     
     func textFieldShouldReturn(_ textField: UITextField) {
-        /* Intentionaly Implemented */
+        delegate?.didUpdatePasswordText(passwordFieldView.getValue())
     }
     
     func textFieldDidEndEditing(_ textField: UITextField) {

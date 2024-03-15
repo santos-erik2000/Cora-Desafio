@@ -25,10 +25,12 @@ targets:
       PRODUCT_BUNDLE_IDENTIFIER:  br.com.Cora.CoraDesafio
       CODE_SIGN_STYLE: 'Automatic'
       PROVISIONING_PROFILE: "Erik Santos"
+      API_URL: "https://api.challenge.stage.cora.com.br/"
 
     info:
       path: ../CoraDesafio/Resources/Info.plist
       properties:
+        ServerUrl: "${API_URL}"
         CFBundleVersion: $(CURRENT_PROJECT_VERSION)
         CFBundleShortVersionString: $(MARKETING_VERSION)
         LSRequiresIPhoneOS: YES
@@ -50,6 +52,7 @@ targets:
       - target: DesignKit
       - target: NetwokKit
       - target: CoreKit
+      - package: Alamofire
       
 #######################
   DesignKit:

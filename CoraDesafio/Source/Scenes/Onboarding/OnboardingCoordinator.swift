@@ -7,6 +7,7 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 typealias OnboardingCoordinatorFlow = OnboardingCoordinator.CoordinatorFlow
 
@@ -41,6 +42,9 @@ extension OnboardingCoordinator: OnboardingCoordinating {
         case .password:
             let controller = PasswordFactory.make(coordinator: self)
             viewController?.navigationController?.pushViewController(controller, animated: true)
+        case .extract:
+            let controller = UIHostingController(rootView: ExtractListView())
+            viewController?.navigationController?.pushViewController(controller, animated: true)
         }
     }
 }
@@ -52,6 +56,6 @@ extension OnboardingCoordinator {
         case login
         case register
         case password
+        case extract
     }
-
 }

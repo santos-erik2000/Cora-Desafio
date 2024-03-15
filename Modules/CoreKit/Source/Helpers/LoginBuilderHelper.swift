@@ -27,7 +27,7 @@ public class LoginBuilderHelper {
         case let .document(value):
             self.document = value
         case let .password(value):
-            self.loginRequest = LoginRequest(document: document ?? "", password: value)
+            self.loginRequest = LoginRequest(cpf: document ?? "", password: value)
         }
     }
     

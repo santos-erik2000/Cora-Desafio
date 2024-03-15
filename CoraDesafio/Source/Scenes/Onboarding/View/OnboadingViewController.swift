@@ -7,6 +7,8 @@
 
 import UIKit
 import DesignKit
+import CoreKit
+import NetwokKit
 
 protocol OnboardingViewDisplaying: AnyObject {
     /* Intentionaly Implemented */

@@ -16,6 +16,15 @@ public class CoraButtonView: UIButton {
     private(set) var action: CoraButtonAction?
     private(set) var viewModel: CoraButtonViewModelProtocol?
     
+    private var activityIndicator: UIActivityIndicatorView = {
+        let indicator = UIActivityIndicatorView(style: UIActivityIndicatorView.Style.medium)
+        indicator.translatesAutoresizingMaskIntoConstraints = false
+        indicator.hidesWhenStopped = true
+        indicator.tintColor = .black
+        indicator.color = .black
+        return indicator
+    }()
+    
     private var contentView: UIView = {
         let view = UIView()
         view.translatesAutoresizingMaskIntoConstraints = false
@@ -50,14 +59,24 @@ public class CoraButtonView: UIButton {
     
     public override var isEnabled: Bool {
         didSet {
-            //Mudar Cor
             setCoraButtonEnable(isEnabled)
         }
     }
     
     public var isLoading: Bool = false {
         didSet {
-            // Setar Loading
+            activityIndicator.isHidden = !isLoading
+            isLoading ? activityIndicator.startAnimating() : activityIndicator.stopAnimating()
+            // Opacity based on isLoading
+            if isLoading {
+                self.alpha = 0.5
+                self.titleLable.isHidden = true
+                self.iconImage.isHidden = true
+            } else {
+                self.alpha = 1.0
+                self.titleLable.isHidden = false
+                self.iconImage.isHidden = false
+            }
         }
     }
     
@@ -72,9 +91,9 @@ public class CoraButtonView: UIButton {
     }
     
     // MARK: - Public Methods
-
+    
     public static func instantiate(viewModel: CoraButtonViewModelProtocol, action: @escaping CoraButtonAction) -> CoraButtonView {
-       return setup(viewModel, action: action)
+        return setup(viewModel, action: action)
     }
     
     public func setViewModel(_ viewModel: CoraButtonViewModelProtocol) {
@@ -88,6 +107,7 @@ public class CoraButtonView: UIButton {
         setupContentView()
         setupTitleLabelView()
         setupIconeView()
+        setupActivityIndicatorView()
         setupDataView()
     }
     
@@ -118,7 +138,6 @@ public class CoraButtonView: UIButton {
                 titleLable.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: 16)
             ])
         }
-      
     }
     
     private func setupIconeView() {
@@ -130,6 +149,14 @@ public class CoraButtonView: UIButton {
             iconImage.widthAnchor.constraint(equalToConstant: 24)
         ])
     }
+    
+    private func setupActivityIndicatorView() {
+           contentView.addSubview(activityIndicator)
+           NSLayoutConstraint.activate([
+               activityIndicator.centerYAnchor.constraint(equalTo: contentView.centerYAnchor),
+               activityIndicator.centerXAnchor.constraint(equalTo: contentView.centerXAnchor)
+           ])
+       }
     
     private func setupContentView() {
         addSubview(contentView)
@@ -186,7 +213,7 @@ public class CoraButtonView: UIButton {
                 UIView.animate(withDuration: 1.125) { [weak self] in
                     guard let self = self else { return }
                     self.contentView.backgroundColor = viewModel?.title.backgroundColor.withAlphaComponent(1)
-              
+                    
                 }
             }
         }

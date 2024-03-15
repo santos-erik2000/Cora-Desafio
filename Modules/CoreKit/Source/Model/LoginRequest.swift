@@ -8,11 +8,12 @@
 import Foundation
 
 public struct LoginRequest: Encodable {
-    public let document: String
+    
+    public let cpf: String
     public let password: String
     
-    public init(document: String, password: String) {
-        self.document = document
+    public init(cpf: String, password: String) {
+        self.cpf = cpf
         self.password = password
     }
 }

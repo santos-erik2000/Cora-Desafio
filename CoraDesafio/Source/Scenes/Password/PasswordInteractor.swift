@@ -7,6 +7,7 @@
 
 import Foundation
 import CoreKit
+import NetwokKit
 
 protocol PasswordInteracting: AnyObject {
     func didPop()
@@ -19,11 +20,13 @@ final class PasswordInteractor {
     // MARK: - Properties
     
     private let presenter: PasswordPresenting
+    private let service: CoraServicing
     
     // MARK: - Initialize
     
-    init(presenter: PasswordPresenting) {
+    init(presenter: PasswordPresenting, service: CoraServicing) {
         self.presenter = presenter
+        self.service = service
     }
 }
 
@@ -32,7 +35,28 @@ final class PasswordInteractor {
 extension PasswordInteractor: PasswordInteracting {
     func savePasswordOnMemory(_ value: String) {
         LoginBuilderHelper.shared.save(.password(value))
-        // Fetch
+        
+        presenter.startLoadingButton()
+        Task {
+            do {
+                guard let data = LoginBuilderHelper.shared.loginRequest else { throw BaseError.inputLoginDataError}
+                let request = LoginRequest(cpf: data.cpf, password: data.password)
+                let token = try await service.fetchLogin(request: request)
+                
+                print("Success: \(token)")
+                
+                DispatchQueue.main.async {[weak self] in
+                    guard let self = self else { return }
+                    self.presenter.showExtractView()
+                }
+            
+            } catch {
+                DispatchQueue.main.async {[weak self] in
+                    guard let self = self else { return }
+                    self.presenter.stopLoadingButton()
+                }
+            }
+        }
     }
     
     func validatePassword(_ value: String) {

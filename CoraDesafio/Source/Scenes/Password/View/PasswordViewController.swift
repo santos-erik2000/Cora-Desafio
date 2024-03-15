@@ -11,6 +11,8 @@ import DesignKit
 
 protocol PasswordDisplaying: AnyObject {
     func setEnableButton(_ value: Bool)
+    func startLoadingButton()
+    func stopLoadingButton()
 }
 
 class PasswordViewController: BaseViewController<PasswordInteracting, PasswordView> {
@@ -45,12 +47,20 @@ class PasswordViewController: BaseViewController<PasswordInteracting, PasswordVi
 // MARK: - PasswordDisplaying + Delegates
 
 extension PasswordViewController: PasswordDisplaying, PasswordViewDelegate {
+    func startLoadingButton() {
+        rootView.setLoadingButton()
+    }
+    
+    func stopLoadingButton() {
+        rootView.stopLoadingButton()
+    }
+    
     func setEnableButton(_ value: Bool) {
         rootView.setEnableButton(value)
     }
     
     func didTapForgotPassword(_ sender: CoraButtonView) {
-        
+        /* Intentionaly Implemented */
     }
     
     func didTapLogginButton(_ sender: CoraButtonView, correctValue: String) {

@@ -12,6 +12,9 @@ protocol PasswordPresenting: AnyObject {
     
     func didPop()
     func setEnableButton(_ value: Bool)
+    func showExtractView()
+    func startLoadingButton()
+    func stopLoadingButton()
 }
 
 final class PasswordPresenter {
@@ -31,8 +34,21 @@ final class PasswordPresenter {
 // MARK: - PasswordPresenting
 
 extension PasswordPresenter: PasswordPresenting {
+    func startLoadingButton() {
+        viewController?.startLoadingButton()
+    }
+    
+    func stopLoadingButton() {
+        viewController?.stopLoadingButton()
+    }
+    
     func setEnableButton(_ value: Bool) {
         viewController?.setEnableButton(value)
+    }
+    
+    func showExtractView() {
+        stopLoadingButton()
+        coordinator.perform(to: .extract)
     }
     
     func didPop() {
